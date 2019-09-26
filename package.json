@@ -4,7 +4,6 @@
 	"description": "",
 	"main": "src/index.js",
 	"scripts": {
-		"start": "webpack-dev-server --open --mode development",
 		"build": "webpack --mode development --watch"
 	},
 	"keywords": [],
