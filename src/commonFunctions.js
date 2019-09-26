@@ -65,6 +65,12 @@ export const setExtensionsCategoryMapping = groups => {
 
 export const addNewCategoryInStorage = categoryName => {
 	return getExtensionsCategoryMapping().then(extensionsCategoryMapping => {
+		const existingCategory = extensionsCategoryMapping.find(
+			category => category.name === categoryName
+		);
+
+		if (existingCategory) throw new Error('Category Name already exist');
+
 		const newCategoryMapping = { extensions: [], name: categoryName, id: uuid() };
 		extensionsCategoryMapping.unshift(newCategoryMapping);
 

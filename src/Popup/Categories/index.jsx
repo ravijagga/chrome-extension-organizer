@@ -1,4 +1,5 @@
 import React from 'react';
+import './Categories.scss';
 import Extensions from './Extensions/index.jsx';
 
 const Categories = ({ mergedExtensionCategories, ...restProps }) => {
@@ -8,8 +9,8 @@ const Categories = ({ mergedExtensionCategories, ...restProps }) => {
 				const { id, name, extensions } = category;
 
 				return (
-					<section key={id} id={id}>
-						<header>{name}</header>
+					<section className="category" key={id} id={id}>
+						<h3>{name}</h3>
 						<Extensions categoryId={id} extensions={category.extensions} {...restProps} />
 					</section>
 				);

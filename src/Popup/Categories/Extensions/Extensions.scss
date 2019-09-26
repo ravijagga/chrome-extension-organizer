@@ -1,0 +1,24 @@
+.extensions {
+	padding-left: 0;
+	list-style: none;
+	#empty {
+		border: 2px dashed #e6e6e6;
+		padding: 10px;
+		text-align: center;
+	}
+	li {
+		margin: 8px 0;
+		label {
+			input[type='checkbox'] {
+				margin-right: 7px;
+				vertical-align: text-bottom;
+			}
+			img {
+				width: auto;
+				height: 14px;
+				vertical-align: text-bottom;
+				margin-right: 7px;
+			}
+		}
+	}
+}

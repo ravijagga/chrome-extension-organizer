@@ -1,5 +1,6 @@
 import React from 'react';
-import './popup.scss';
+require('purecss');
+import './Popup.scss';
 import Categories from './Categories/index.jsx';
 import AddCategory from './AddCategory/index.jsx';
 

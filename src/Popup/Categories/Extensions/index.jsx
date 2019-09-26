@@ -1,4 +1,5 @@
 import React from 'react';
+import './Extensions.scss';
 
 const Extensions = ({ categoryId, extensions, updateExtensionStatus, moveExtensionWrapper }) => {
 	const handleCheckBox = ({
@@ -66,10 +67,15 @@ const Extensions = ({ categoryId, extensions, updateExtensionStatus, moveExtensi
 	};
 
 	return (
-		<ul data-category-id={categoryId} onDrop={handleDrop} onDragOver={handleDragOver}>
+		<ul
+			className="extensions"
+			data-category-id={categoryId}
+			onDrop={handleDrop}
+			onDragOver={handleDragOver}
+		>
 			{!!extensions.length &&
 				extensions.map(extension => {
-					const { id, name, enabled } = extension;
+					const { id, name, enabled, iconUrl } = extension;
 					return (
 						<li
 							key={id}
@@ -79,24 +85,23 @@ const Extensions = ({ categoryId, extensions, updateExtensionStatus, moveExtensi
 							onDragStart={handleDrag}
 							onDragEnd={handleDragEnd}
 						>
-							<input
-								type="checkbox"
-								data-extension-id={id}
-								id={`checkbox-${id}`}
-								name={name}
-								checked={enabled}
-								onChange={handleCheckBox}
-							/>
-							<label htmlFor={`checkbox-${id}`}>{name}</label>
+							<label htmlFor={`checkbox-${id}`} className="pure-checkbox">
+								<input
+									type="checkbox"
+									data-extension-id={id}
+									id={`checkbox-${id}`}
+									name={name}
+									checked={enabled}
+									onChange={handleCheckBox}
+								/>
+								{!!iconUrl && <img src={iconUrl} alt={name} />}
+								{name}
+							</label>
 						</li>
 					);
 				})}
 
-			{!extensions.length && (
-				<li id="empty" style={{ border: '1px dashed #ccc', padding: '10px' }}>
-					Drag and Drop extensions here
-				</li>
-			)}
+			{!extensions.length && <div id="empty">Drag and Drop extensions here</div>}
 		</ul>
 	);
 };
