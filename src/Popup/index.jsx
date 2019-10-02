@@ -8,13 +8,19 @@ import {
 	getMergedExtensionsCategories,
 	addNewCategoryInStorage,
 	moveExtension,
-	updateExtensionStatus
+	updateExtensionStatus,
+	updateGroups,
+	getExtensionsCategoryMapping
 } from '../commonFunctions';
 
 class Popup extends React.Component {
 	state = { extensions: [], mergedExtensionCategories: [] };
 	componentDidMount() {
-		this.setMergedExtensionsCategoriesInState();
+		getExtensionsCategoryMapping().then(
+			categories =>
+				!!categories.length &&
+				updateGroups(categories).then(() => this.setMergedExtensionsCategoriesInState())
+		);
 	}
 
 	setMergedExtensionsCategoriesInState = () => {

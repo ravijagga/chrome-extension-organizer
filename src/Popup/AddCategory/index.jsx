@@ -29,7 +29,7 @@ class AddCategory extends React.Component {
 		const { newCategoryName, error } = this.state;
 		return (
 			<section className="new-cat">
-				<form class="pure-form" onSubmit={this.onSubmit}>
+				<form className="pure-form" onSubmit={this.onSubmit}>
 					<fieldset>
 						<input
 							type="text"
@@ -39,7 +39,7 @@ class AddCategory extends React.Component {
 							onChange={this.onChange}
 							placeholder="Category Name"
 						/>
-						<button type="submit" class="pure-button">
+						<button type="submit" className="pure-button">
 							Add Category
 						</button>
 						<span>{error}</span>

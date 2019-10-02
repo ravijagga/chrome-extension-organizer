@@ -100,3 +100,48 @@ export const updateExtensionStatus = (extensionId, enabled) => {
 		chrome.management.setEnabled(extensionId, enabled, () => resolve())
 	);
 };
+
+export const resetGroups = () => {
+	return getAllExtensions().then(extensions => {
+		const groups = [
+			{
+				name: 'Uncategorized',
+				id: uuid(),
+				extensions: extensions.map(({ name, id }) => ({ name, id }))
+			}
+		];
+
+		return setExtensionsCategoryMapping(groups);
+	});
+};
+
+export const updateGroups = existingGroups => {
+	return getAllExtensions().then(extensions => {
+		const notFoundExtensions = [...extensions];
+
+		const updatedGroups = existingGroups.map(group => {
+			// remove not found extensions from all groups
+			const updatedGroup = {
+				...group,
+				extensions: group.extensions.filter(groupExtension => {
+					const extensionPosition = notFoundExtensions.findIndex(
+						extension => extension.id === groupExtension.id
+					);
+
+					return extensionPosition > -1 && !!notFoundExtensions.splice(extensionPosition, 1).length;
+				})
+			};
+
+			console.log(notFoundExtensions);
+
+			// add new extensions in uncategorised group
+			if (group.name === 'Uncategorized' && notFoundExtensions.length) {
+				updatedGroup.extensions = [...updatedGroup.extensions, ...notFoundExtensions];
+			}
+
+			return updatedGroup;
+		});
+
+		return setExtensionsCategoryMapping(updatedGroups);
+	});
+};
