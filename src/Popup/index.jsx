@@ -10,7 +10,8 @@ import {
 	moveExtension,
 	updateExtensionStatus,
 	updateGroups,
-	getExtensionsCategoryMapping
+	getExtensionsCategoryMapping,
+	deleteCategoryById
 } from '../commonFunctions';
 
 class Popup extends React.Component {
@@ -23,27 +24,33 @@ class Popup extends React.Component {
 		);
 	}
 
-	setMergedExtensionsCategoriesInState = () => {
-		return getMergedExtensionsCategories().then(mergedExtensionCategories => {
-			console.log('mergedExtensionCategories: ', mergedExtensionCategories);
-			return this.setState({ mergedExtensionCategories });
-		});
-	};
+	setMergedExtensionsCategoriesInState = () =>
+		getMergedExtensionsCategories().then(mergedExtensionCategories =>
+			this.setState({ mergedExtensionCategories })
+		);
 
-	addNewCategory = newCategoryName => {
-		return addNewCategoryInStorage(newCategoryName).then(categoriesMapping => {
-			return this.setMergedExtensionsCategoriesInState();
-		});
-	};
+	addNewCategory = newCategoryName =>
+		addNewCategoryInStorage(newCategoryName).then(categoriesMapping =>
+			this.setMergedExtensionsCategoriesInState()
+		);
+
+	deleteCategory = categoryId =>
+		deleteCategoryById(categoryId).then(() => this.setMergedExtensionsCategoriesInState());
 
 	updateExtensionStatus = (extensionId, enabled) =>
 		updateExtensionStatus(extensionId, enabled).then(() =>
 			this.setMergedExtensionsCategoriesInState()
 		);
 
-	moveExtensionWrapper = (fromCategoryId, toCategoryId, extensionId) =>
-		moveExtension(fromCategoryId, toCategoryId, extensionId).then(() =>
-			this.setMergedExtensionsCategoriesInState()
+	moveExtensionWrapper = (
+		fromCategoryId,
+		toCategoryId,
+		extensionId,
+		sourceIndex,
+		destinationIndex
+	) =>
+		moveExtension(fromCategoryId, toCategoryId, extensionId, sourceIndex, destinationIndex).then(
+			() => this.setMergedExtensionsCategoriesInState()
 		);
 
 	render() {
@@ -55,6 +62,7 @@ class Popup extends React.Component {
 					mergedExtensionCategories={mergedExtensionCategories}
 					updateExtensionStatus={this.updateExtensionStatus}
 					moveExtensionWrapper={this.moveExtensionWrapper}
+					deleteCategory={this.deleteCategory}
 				/>
 			</React.Fragment>
 		);

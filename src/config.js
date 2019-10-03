@@ -1,4 +1,4 @@
 export default {
 	STORAGE_KEY: 'rj_ext_groups',
-	RESET_CATEGORY_MAPPING: true
+	RESET_CATEGORY_MAPPING: false
 };

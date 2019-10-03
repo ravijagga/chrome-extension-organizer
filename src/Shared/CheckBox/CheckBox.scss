@@ -1,0 +1,68 @@
+@import '../../scss/colors';
+
+/* Customize the label (the container) */
+.checkbox {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	user-select: none;
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	vertical-align: middle;
+
+	/* On mouse-over, add a grey background color */
+	&:hover {
+		input {
+			& ~ .checkmark {
+				background-color: #fff;
+			}
+		}
+	}
+
+	/* Hide the browser's default checkbox */
+	input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		height: 0;
+		width: 0;
+
+		/* When the checkbox is checked, add a blue background */
+		&:checked {
+			& ~ .checkmark {
+				background-color: #fff;
+
+				/* Show the checkmark when checked */
+				&:after {
+					display: block;
+				}
+			}
+		}
+	}
+
+	/* Create a custom checkbox */
+	.checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 16px;
+		width: 16px;
+		background-color: #fff;
+		border: 2px solid #dee2e6;
+
+		/* Create the checkmark/indicator (hidden when not checked) */
+		&:after {
+			content: '';
+			position: absolute;
+			display: none;
+			left: 6px;
+			top: -6px;
+			width: 4px;
+			height: 14px;
+			border: solid green;
+			border-width: 0 3px 3px 0;
+			transform: rotate(45deg);
+		}
+	}
+}

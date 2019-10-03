@@ -1,9 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 * {
 	box-sizing: border-box;
+	outline: none;
 }
 
 body {
-	min-width: 250px;
-	padding: 1.5em;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	min-width: 300px;
+	padding: 1em;
 	color: #444;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	&::-webkit-scrollbar-track {
+		background: #fff;
+		&:hover {
+			background: #eee;
+		}
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #ccc;
+		&:hover {
+			background: #999;
+		}
+	}
 }

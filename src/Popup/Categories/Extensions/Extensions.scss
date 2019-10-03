@@ -1,22 +1,33 @@
 .extensions {
 	padding-left: 0;
 	list-style: none;
+	margin: 0;
 	#empty {
+		transition: all 0.3s ease;
 		border: 2px dashed #e6e6e6;
+		border-radius: 3px;
 		padding: 10px;
 		text-align: center;
+		color: #999;
 	}
 	li {
-		margin: 8px 0;
-		label {
-			input[type='checkbox'] {
-				margin-right: 7px;
-				vertical-align: text-bottom;
+		> label {
+			max-width: 270px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: block;
+			user-select: none;
+			cursor: inherit;
+			padding: 7px 0;
+			.checkbox {
+				margin-right: 10px;
+				vertical-align: middle;
 			}
 			img {
 				width: auto;
-				height: 14px;
-				vertical-align: text-bottom;
+				height: 16px;
+				vertical-align: middle;
 				margin-right: 7px;
 			}
 		}

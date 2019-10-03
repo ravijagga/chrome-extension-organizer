@@ -18,8 +18,6 @@ export const getAllExtensions = () => {
 export const getExtensionsCategoryMapping = () => {
 	return new Promise((resolve, reject) => {
 		chrome.storage.sync.get(config.STORAGE_KEY, function(result) {
-			console.log('map result: ', result);
-
 			return result[config.STORAGE_KEY]
 				? resolve(result[config.STORAGE_KEY])
 				: reject(new Error('Extensions Category Mapping Not found'));
@@ -30,9 +28,6 @@ export const getExtensionsCategoryMapping = () => {
 export const getMergedExtensionsCategories = () => {
 	return Promise.all([getAllExtensions(), getExtensionsCategoryMapping()]).then(
 		([allExtensions, extensionsCategoryMapping]) => {
-			console.log('allExtensions: ', allExtensions);
-			console.log('extensionsCategoryMapping: ', extensionsCategoryMapping);
-
 			function mergeExtension(extension) {
 				const chromeExtension = allExtensions.find(chromeExt => chromeExt.id === extension.id);
 
@@ -78,28 +73,70 @@ export const addNewCategoryInStorage = categoryName => {
 	});
 };
 
-export const moveExtension = (fromCategoryId, toCategoryId, extensionId) => {
-	return getExtensionsCategoryMapping().then(extensionsCategoryMapping => {
-		const sourceCategory = extensionsCategoryMapping.find(
-			category => category.id === fromCategoryId
-		);
-		const targetCategory = extensionsCategoryMapping.find(category => category.id === toCategoryId);
-		const extensionIndexInSourceCategory = sourceCategory.extensions.findIndex(
-			extension => extension.id === extensionId
+export const deleteCategoryById = categoryId => {
+	return getExtensionsCategoryMapping().then(categories => {
+		const categoryIndex = categories.findIndex(category => category.id === categoryId);
+
+		// Push extensions in uncategorized group
+		const uncategorised = categories[categories.length - 1];
+		uncategorised.extensions = uncategorised.extensions.concat(
+			categories[categoryIndex].extensions
 		);
 
-		targetCategory.extensions.push(sourceCategory.extensions[extensionIndexInSourceCategory]);
-		sourceCategory.extensions.splice(extensionIndexInSourceCategory, 1);
+		// delete category
+		categories.splice(categoryIndex, 1);
 
-		return setExtensionsCategoryMapping(extensionsCategoryMapping);
+		return setExtensionsCategoryMapping(categories);
 	});
 };
 
-export const updateExtensionStatus = (extensionId, enabled) => {
-	return new Promise(resolve =>
-		chrome.management.setEnabled(extensionId, enabled, () => resolve())
-	);
+export const moveExtension = (
+	fromCategoryId,
+	toCategoryId,
+	extensionId,
+	sourceIndex,
+	destinationIndex
+) => {
+	return getExtensionsCategoryMapping().then(extensionsCategoryMapping => {
+		function getCategoryById(id) {
+			return extensionsCategoryMapping.find(category => category.id === id);
+		}
+
+		if (fromCategoryId !== toCategoryId) {
+			const sourceCategory = getCategoryById(fromCategoryId);
+			const targetCategory = getCategoryById(toCategoryId);
+
+			const sourceExtension = sourceCategory.extensions[sourceIndex];
+			const extensionIndexInSourceCategory =
+				sourceExtension && sourceExtension.id === extensionId
+					? sourceIndex
+					: sourceCategory.extensions.findIndex(extension => extension.id === extensionId);
+
+			targetCategory.extensions.splice(
+				destinationIndex,
+				0,
+				sourceCategory.extensions[extensionIndexInSourceCategory]
+			);
+
+			sourceCategory.extensions.splice(extensionIndexInSourceCategory, 1);
+
+			return setExtensionsCategoryMapping(extensionsCategoryMapping);
+		} else if (sourceIndex !== destinationIndex) {
+			const category = getCategoryById(fromCategoryId);
+
+			category.extensions.splice(
+				destinationIndex,
+				0,
+				category.extensions.splice(sourceIndex, 1)[0]
+			);
+
+			return setExtensionsCategoryMapping(extensionsCategoryMapping);
+		}
+	});
 };
+
+export const updateExtensionStatus = (extensionId, enabled) =>
+	new Promise(resolve => chrome.management.setEnabled(extensionId, enabled, () => resolve()));
 
 export const resetGroups = () => {
 	return getAllExtensions().then(extensions => {
@@ -131,8 +168,6 @@ export const updateGroups = existingGroups => {
 					return extensionPosition > -1 && !!notFoundExtensions.splice(extensionPosition, 1).length;
 				})
 			};
-
-			console.log(notFoundExtensions);
 
 			// add new extensions in uncategorised group
 			if (group.name === 'Uncategorized' && notFoundExtensions.length) {
