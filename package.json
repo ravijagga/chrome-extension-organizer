@@ -1,13 +1,16 @@
 {
-	"name": "chrome_ext_manager",
+	"name": "chrome-extension-organizer",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A chrome extension to organize other extensions",
 	"main": "src/index.js",
 	"scripts": {
 		"build": "webpack --mode development --watch",
 		"build:prod": "webpack --mode production"
 	},
-	"keywords": [],
+	"keywords": [
+		"chrome extension manager",
+		"chrome extension organizer"
+	],
 	"author": "Ravi Jagga",
 	"license": "ISC",
 	"devDependencies": {

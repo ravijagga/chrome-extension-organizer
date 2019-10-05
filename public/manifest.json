@@ -1,7 +1,7 @@
 {
-	"name": "Chrome Extension Manager",
+	"name": "Chrome Extension Organizer",
 	"version": "1.0",
-	"description": "Extension to Manage other extensions",
+	"description": "A chrome extension to organize other extensions",
 	"permissions": ["management", "storage"],
 	"background": {
 		"scripts": ["background.js"],
