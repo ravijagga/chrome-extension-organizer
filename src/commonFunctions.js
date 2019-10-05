@@ -61,7 +61,7 @@ export const setExtensionsCategoryMapping = groups => {
 export const addNewCategoryInStorage = categoryName => {
 	return getExtensionsCategoryMapping().then(extensionsCategoryMapping => {
 		const existingCategory = extensionsCategoryMapping.find(
-			category => category.name === categoryName
+			category => category.name.toLowerCase() === categoryName.toLowerCase()
 		);
 
 		if (existingCategory) throw new Error('Category Name already exist');

@@ -2,7 +2,7 @@
 	"name": "Chrome Extension Manager",
 	"version": "1.0",
 	"description": "Extension to Manage other extensions",
-	"permissions": ["activeTab", "management", "storage"],
+	"permissions": ["management", "storage"],
 	"background": {
 		"scripts": ["background.js"],
 		"persistent": false
