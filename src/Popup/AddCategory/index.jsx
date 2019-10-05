@@ -1,27 +1,30 @@
 import React from 'react';
+import config from '../../config';
 import './AddCategory.scss';
 class AddCategory extends React.Component {
 	state = { newCategoryName: '', error: '' };
 
-	onChange = ({ target: { value, name } }) => {
-		this.setState({ [name]: value });
-	};
+	isCategoryNameValid = categoryName => config.CATEGORY_NAME_REGEX.test(categoryName);
+
+	onChange = ({ target: { value, name } }) =>
+		this.setState({
+			[name]: value,
+			error: !this.isCategoryNameValid(value) && value ? config.CATEGORY_NAME_ERR_MSG : ''
+		});
 
 	onSubmit = e => {
 		e.preventDefault();
 		const { addNewCategory } = this.props;
 		const { newCategoryName } = this.state;
-		const categoryNamePattern = /^([\w]+[ ]{0,1})+$/;
 
-		if (!categoryNamePattern.test(newCategoryName)) {
+		if (!this.isCategoryNameValid(newCategoryName)) {
 			return this.setState({
-				error:
-					'Category Name is invalid. Only Alpha-Numeric, whitespaces and underscore (_) are allowed'
+				error: config.CATEGORY_NAME_ERR_MSG
 			});
 		}
 
 		addNewCategory(newCategoryName)
-			.then(() => this.setState({ newCategoryName: '' }))
+			.then(() => this.setState({ newCategoryName: '', error: '' }))
 			.catch(err => this.setState({ error: err.message }));
 	};
 
@@ -39,10 +42,10 @@ class AddCategory extends React.Component {
 							onChange={this.onChange}
 							placeholder="Category Name"
 						/>
+						<span className="error">{error}</span>
 						<button type="submit" className="pure-button">
 							Add Category
 						</button>
-						<span>{error}</span>
 					</fieldset>
 				</form>
 			</section>

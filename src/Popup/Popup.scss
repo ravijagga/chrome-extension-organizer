@@ -9,22 +9,21 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 13px;
 	min-width: 300px;
-	padding: 1em;
 	color: #444;
 
 	&::-webkit-scrollbar {
 		width: 10px;
 	}
 	&::-webkit-scrollbar-track {
-		background: #fff;
+		background: rgba($color: #000, $alpha: 0.03);
 		&:hover {
-			background: #eee;
+			background: rgba($color: #000, $alpha: 0.05);
 		}
 	}
 	&::-webkit-scrollbar-thumb {
-		background: #ccc;
+		background: rgba($color: #000, $alpha: 0.1);
 		&:hover {
-			background: #999;
+			background: rgba($color: #000, $alpha: 0.15);
 		}
 	}
 }

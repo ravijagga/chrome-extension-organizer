@@ -2,6 +2,7 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import './Categories.scss';
 import Extensions from './Extensions/index.jsx';
+import config from '../../config';
 
 const Categories = ({
 	mergedExtensionCategories,
@@ -27,7 +28,7 @@ const Categories = ({
 	};
 
 	const deleteCategoryWrap = categoryId => {
-		const confirmed = window.confirm('Do you realy want to delete this Category?');
+		const confirmed = window.confirm(config.CATEGORY_DELETE_WARNING_MSG);
 		if (!confirmed) return;
 
 		return deleteCategory(categoryId);
@@ -43,7 +44,7 @@ const Categories = ({
 						<header>
 							<h3>{name}</h3>
 							{mergedExtensionCategories.length - 1 !== index && (
-								<span className="del-cat" onClick={deleteCategoryWrap.bind(null, id)}>
+								<span className="del-cat" title="Delete Category" onClick={deleteCategoryWrap.bind(null, id)}>
 									&times;
 								</span>
 							)}

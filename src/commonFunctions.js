@@ -59,6 +59,8 @@ export const setExtensionsCategoryMapping = groups => {
 };
 
 export const addNewCategoryInStorage = categoryName => {
+	categoryName = categoryName.trim();
+
 	return getExtensionsCategoryMapping().then(extensionsCategoryMapping => {
 		const existingCategory = extensionsCategoryMapping.find(
 			category => category.name.toLowerCase() === categoryName.toLowerCase()

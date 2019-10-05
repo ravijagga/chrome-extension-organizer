@@ -1,16 +1,22 @@
+@import '../../scss/colors';
+
 .category {
 	header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin: 25px 0 5px;
+		padding: 0 1em;
 		h3 {
 			margin: 0;
 		}
 		.del-cat {
-			color: #db0606;
+			color: $red;
 			font-size: 2em;
 			cursor: pointer;
+			&:hover {
+				color: darken($color: $red, $amount: 10%);
+			}
 		}
 	}
 }

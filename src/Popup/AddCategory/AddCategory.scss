@@ -1,6 +1,12 @@
+@import '../../scss/colors';
+
 .new-cat {
+	padding: 1em 1em 0;
 	input {
 		padding: 10px 13px !important;
+	}
+	.error {
+		color: $red;
 	}
 	button {
 		width: 100%;

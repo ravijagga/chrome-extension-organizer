@@ -9,8 +9,13 @@
 		padding: 10px;
 		text-align: center;
 		color: #999;
+		margin: 0 1em;
 	}
 	li {
+		padding: 0 1em;
+		&:hover {
+			background: rgba($color: #000, $alpha: 0.03);
+		}
 		> label {
 			max-width: 270px;
 			white-space: nowrap;
