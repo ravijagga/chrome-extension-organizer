@@ -2,10 +2,9 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-	mode: 'development',
 	entry: {
 		popup: path.resolve(__dirname, 'src/index.js'),
 		background: path.resolve(__dirname, 'src/background.js')
@@ -56,8 +55,5 @@ module.exports = {
 		}),
 		new CopyPlugin(['public'])
 		// new CleanWebpackPlugin()
-	],
-	devServer: {
-		port: 5000
-	}
+	]
 };
