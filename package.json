@@ -1,6 +1,6 @@
 {
 	"name": "chrome-extension-organizer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A chrome extension to organize other extensions",
 	"main": "src/index.js",
 	"scripts": {
