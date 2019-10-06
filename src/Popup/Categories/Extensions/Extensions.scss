@@ -1,7 +1,10 @@
 .extensions {
 	padding-left: 0;
 	list-style: none;
-	margin: 0;
+	margin: 0 1em;
+	min-height: 50px;
+	border: 1px dashed rgba(0, 0, 0, 0.03);
+	background: rgba(0, 0, 0, 0.01);
 	#empty {
 		transition: all 0.3s ease;
 		border: 2px dashed #e6e6e6;
@@ -12,7 +15,7 @@
 		margin: 0 1em;
 	}
 	li {
-		padding: 0 1em;
+		// padding: 0 1em;
 		&:hover {
 			background: rgba($color: #000, $alpha: 0.03);
 		}
@@ -24,7 +27,7 @@
 			display: block;
 			user-select: none;
 			cursor: inherit;
-			padding: 7px 0;
+			padding: 7px;
 			.checkbox {
 				margin-right: 10px;
 				vertical-align: middle;

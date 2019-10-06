@@ -47,20 +47,13 @@ const Extensions = ({ categoryId, extensions, updateExtensionStatus, moveExtensi
 												{!!iconUrl && <img src={iconUrl} alt={name} />}
 												{name}
 											</label>
-											{provided.placeholder}
 										</li>
 									)}
 								</Draggable>
 							);
 						})}
 
-					{!extensions.length && (
-						<div id="empty" style={getEmptyListStyle(snapshot.isDraggingOver)}>
-							Drag and Drop extensions here
-						</div>
-					)}
-
-					{!!extensions.length && provided.placeholder}
+					{provided.placeholder}
 				</ul>
 			)}
 		</Droppable>

@@ -1,12 +1,13 @@
 @import '../../scss/colors';
 
 .category {
+	margin: 25px 0;
 	header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 25px 0 5px;
 		padding: 0 1em;
+		margin-bottom: 5px;
 		h3 {
 			margin: 0;
 		}
