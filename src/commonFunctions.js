@@ -144,7 +144,7 @@ export const resetGroups = () => {
 	return getAllExtensions().then(extensions => {
 		const groups = [
 			{
-				name: 'Uncategorized',
+				name: config.UNCATEGORIZED_SECTION_NAME,
 				id: uuid(),
 				extensions: extensions.map(({ name, id }) => ({ name, id }))
 			}
@@ -172,7 +172,7 @@ export const updateGroups = existingGroups => {
 			};
 
 			// add new extensions in uncategorised group
-			if (group.name === 'Uncategorized' && notFoundExtensions.length) {
+			if (group.name === config.UNCATEGORIZED_SECTION_NAME && notFoundExtensions.length) {
 				updatedGroup.extensions = [...updatedGroup.extensions, ...notFoundExtensions];
 			}
 
