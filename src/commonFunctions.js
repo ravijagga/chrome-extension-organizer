@@ -34,7 +34,9 @@ export const getMergedExtensionsCategories = () => {
 				return {
 					...extension,
 					enabled: chromeExtension.enabled,
-					iconUrl: chromeExtension.icons.length ? chromeExtension.icons[0].url : ''
+					iconUrl:
+						(chromeExtension.icons && chromeExtension.icons[0] && chromeExtension.icons[0].url) ||
+						''
 				};
 			}
 
