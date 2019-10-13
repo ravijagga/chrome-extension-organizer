@@ -5,14 +5,15 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 25px 0 5px;
+		margin: 15px 0 0;
 		padding: 0 1em;
 		h3 {
 			margin: 0;
 		}
 		.del-cat {
 			color: $red;
-			font-size: 2em;
+			font-size: 1.7em;
+			line-height: 0;
 			cursor: pointer;
 			&:hover {
 				color: darken($color: $red, $amount: 10%);
